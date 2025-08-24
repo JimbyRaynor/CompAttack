@@ -148,8 +148,14 @@ def movebullets():
               robotstoremove.append(myrobot)
               bulletstoremove.append(b) 
               RobotSpeed = RobotSpeed + 0.2 
+              if RobotSpeed >= 2: RobotSpeed = 2
               increasescore(10)
        b.move()
+    for myrobot in robotlist:
+        if LEDpygamelib.checkcollisionrect(myship,myrobot):
+              removeship()
+              if PlayerAlive:
+                 setlevel()  
     for r in robotstoremove:
            if r in robotlist:
              robotlist.remove(r)
@@ -232,7 +238,7 @@ def setlevel():
     if rcount == 0 : # start a new level, have not died during level
        eraseplayfield()
        createplayfield()
-       RobotSpeed = 0.2
+       RobotSpeed = min(0.2*LEVELSTART,0.8)
     else:
        shuffleplayfield() # continue level after dying
        if  rcount <= 4:
@@ -270,8 +276,8 @@ def removeship():
      global PlayerAlive
      if len(liveslist) >= 1:
        lastship = liveslist[len(liveslist)-1]
-       lastship.undraw()
        liveslist.remove(lastship)
+       del lastship
      else:
        print("Game Over")
        PlayerAlive = False
