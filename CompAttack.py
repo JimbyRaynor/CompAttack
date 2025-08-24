@@ -9,7 +9,6 @@ import LEDpygamelib, Highscorelib
 # TODO
 # draw computers: ZX81, C64, etc. They are the robots and shoot disks and CD-ROMs
 # create cute creatures to rescue - GitHub furry, Linux Penguin, etc, look for Linux Icons
-# rescue c64 logo
 
 # Keep LED graphics for special effects, particle explosions, etc
 # full game
@@ -64,6 +63,8 @@ RobotSpeed = 0.2
 HUMANSPEED = 0.3
 
 myship = LEDpygamelib.pygameLEDobj(screen,200,300,dx = 0,dy = 0,CharPoints=charHuman, pixelsize = 2)
+myship.collisionrect = (2,2,28,22)
+#myship.collisionrectshow = True
 displayscore = LEDpygamelib.pygameLEDscoreobj(screen,x=180,y=10,score=0,colour="white",pixelsize=3, charwidth = 24,numzeros=7, solid = False)
 displaytextscore = LEDpygamelib.pygameLEDtextobj(screen,x=227,y=35,text="SCORE",colour="yellow",pixelsize = 2, charwidth=14, solid = True)
 displayhighscore = LEDpygamelib.pygameLEDscoreobj(screen,x=WIDTH-171,y=10,score=highscore,colour="white",pixelsize=3, charwidth = 24,numzeros=7)
@@ -83,8 +84,8 @@ def createplayfield():
         x = randxloc()
         y = randyloc()
         myrobot = LEDpygamelib.pygameLEDobj(screen,x,y,dx = 0,dy = 0,CharPoints=charZX80, pixelsize = 2)
-        myrobot.collisionrect = (0,0,21,25)
-        #myrobot.showcollisionrect()
+        myrobot.collisionrect = (0,0,21,30)
+        #myrobot.collisionrectshow = True
         robotlist.append(myrobot)
     for i in range(LEVELSTART+1):
         r = random.randint(0,1)
@@ -277,7 +278,8 @@ def removeship():
 
 def createBonus1():
     b1 = LEDpygamelib.pygameLEDobj(screen,randxloc(),randyloc(),dx = 0,dy = 0,CharPoints=charc64logo, pixelsize = 2)
-    b1.collisionrect = (0,0,12,19)
+    b1.collisionrect = (8,0,34,30)
+    #b1.collisionrectshow = True
     b1.dx = -HUMANSPEED
     bonuslist.append(b1)
 
@@ -314,5 +316,4 @@ while running:
     screen.blit(fps_text, (WIDTH-100,HEIGHT-30))
     pygame.display.flip()
     clock.tick(60)
-
 pygame.quit()
