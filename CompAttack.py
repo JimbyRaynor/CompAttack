@@ -7,13 +7,15 @@ import LEDpygamelib, Highscorelib
 
 # Computers Attack!
 # TODO
+# sound
 # draw computers: ZX81, C64, etc. They are the robots and shoot disks and CD-ROMs
 # create cute creatures to rescue - GitHub furry, Linux Penguin, etc, look for Linux Icons
-
-# Keep LED graphics for special effects, particle explosions, etc
-# full game
 # read joystciks - simple ..? see copilot
-# write brief history at button of screen ZX80 RAM:4k, CPU: Z80, etc
+# write brief history at button of screen ZX80 RAM:4k, CPU: Z80, etc 
+# animated interior blocks, robots eat dots and add dots to interior of dots, use LED chars for this so 
+# add to list in char
+# Need to collect more points, for extra ships, smart bombs, etc as levels get harder. Needs to be balanced.
+
 
 # Initialize Pygame
 pygame.init()
@@ -209,14 +211,23 @@ def readkeys():
         myship.x -= STEPD
     if keys[pygame.K_d]:
         myship.x += STEPD
+    if keys[pygame.K_DOWN] and keys[pygame.K_RIGHT] and CanFire:
+        makebullet(x=myship.x+12,y=myship.y+12,dx=24,dy=24,rotateangle=45)
+    if keys[pygame.K_UP] and keys[pygame.K_RIGHT] and CanFire:
+        makebullet(x=myship.x+12,y=myship.y-36,dx=24,dy=-24,rotateangle=-45)
+    if keys[pygame.K_DOWN] and keys[pygame.K_LEFT] and CanFire:
+        makebullet(x=myship.x-36,y=myship.y+12,dx=-24,dy=24,rotateangle=-45)
+    if keys[pygame.K_UP] and keys[pygame.K_LEFT] and CanFire:
+        makebullet(x=myship.x-24,y=myship.y-24,dx=-24,dy=-24,rotateangle=-45-90)
     if keys[pygame.K_UP] and CanFire:
-        makebullet(x=myship.x-12,y=myship.y-30,dx=0,dy=-24,rotateangle=90)
+        makebullet(x=myship.x-8,y=myship.y-30,dx=0,dy=-24,rotateangle=90)
     if keys[pygame.K_RIGHT] and CanFire:
-        makebullet(x=myship.x-12,y=myship.y-12,dx=24,dy=0,rotateangle=0)
+        makebullet(x=myship.x+12,y=myship.y-12,dx=24,dy=0,rotateangle=0)
     if keys[pygame.K_LEFT] and CanFire:
-        makebullet(x=myship.x-12,y=myship.y-12,dx=-24,dy=0,rotateangle=0)
+        makebullet(x=myship.x-24,y=myship.y-12,dx=-24,dy=0,rotateangle=0)
     if keys[pygame.K_DOWN] and CanFire:
-        makebullet(x=myship.x-12,y=myship.y+24,dx=0,dy=24,rotateangle=90)
+        makebullet(x=myship.x-8,y=myship.y+24,dx=0,dy=24,rotateangle=90)
+    
 
 
 def shuffleplayfield():
